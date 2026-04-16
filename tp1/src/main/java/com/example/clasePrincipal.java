@@ -25,15 +25,15 @@ public class clasePrincipal {
         boolean salir = false;
 
         while (!salir) {
-            System.out.println("\n--- SISTEMA DE BIBLIOTECA ---");
+            System.out.println("\n SISTEMA DE BIBLIOTECA");
             System.out.println("1. Registrar nuevo alumno");
-            System.out.println("2. Ver alumnos y sus libros");
-            System.out.println("3. Prestar un libro");
+            System.out.println("2. Ver alumnos y sus libros a sus disposicion");
+            System.out.println("3. Solicitar Libro");
             System.out.println("4. Salir");
-            System.out.print("Elige una opción: ");
+            System.out.print("Elige una opcion: ");
             
             int opcion = lector.nextInt();
-            lector.nextLine(); // Limpiar el buffer
+            lector.nextLine(); 
 
             switch (opcion) {
                 case 1:
@@ -53,6 +53,7 @@ public class clasePrincipal {
                     break;
 
                 case 3:
+                    // Validamos que haya al menos un alumno registrado antes de solicitar un libro
                     if (listaDeAlumnos.isEmpty()) {
                         System.out.println("Primero registra un alumno.");
                         break;
@@ -69,7 +70,7 @@ public class clasePrincipal {
                     // Buscamos al objeto Alumno en nuestra lista
                     for (Alumno a : listaDeAlumnos) {
                         if (a.getNombre().equalsIgnoreCase(nombreAlumno)) {
-                            // INTERACCIÓN: Conectamos Alumno, Libro y Biblioteca
+                            //  Conectamos Alumno, Libro y Biblioteca
                             sistemaPrestamos.gestionarPrestamo(a, libroElegido, biblioteca);
                         }
                     }
