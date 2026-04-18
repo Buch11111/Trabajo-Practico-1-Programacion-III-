@@ -24,6 +24,8 @@ public class Prestamo {
         } else {
             // 4. INTERACCIÓN DIRECTA: Modificar a la clase Alumno (asociarle el libro)
             alumno.agregarLibro(libro);
+            // Marcar el libro como no disponible en la biblioteca
+            Libro.prestarLibro(libro);
             System.out.println("Aprobado: Se prestó '" + libro + "' exitosamente.");
         }
     }

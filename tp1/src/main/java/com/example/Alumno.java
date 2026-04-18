@@ -1,16 +1,25 @@
 package com.example;
-import java.util.ArrayList;
+
+import java.util.HashMap;
 
 public class Alumno {
     // ATRIBUTOS 
     private String nombre;
-    private ArrayList<String> librosPrestados;
+    private String legajo;
+    private String carrera;
+    private String email;
+    // HashMap almacena libros prestados con timestamp de préstamo
+    // Estructura: HashMap<String clave(título), Long valor(timestamp)>
+    private HashMap<String, Long> librosPrestadosConFecha;
 
     // CONSTRUCTOR / instanciar
-    public Alumno(String nombre) {
+    public Alumno(String nombre, String legajo, String carrera, String email) {
         this.nombre = nombre;
-        // Inicializamos el ArrayList
-        this.librosPrestados = new ArrayList<>();
+        this.legajo = legajo;
+        this.carrera = carrera;
+        this.email = email;
+        // Inicializamos el HashMap
+        this.librosPrestadosConFecha = new HashMap<>();
     }
 
     // COMPORTAMIENTOS 
@@ -19,14 +28,41 @@ public class Alumno {
         return nombre;
     }
 
+    public String getLegajo() {
+        return legajo;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     // INTERACCION: le pasa cantida de libros 
     public int getCantidadLibros() {
-        return librosPrestados.size(); // Solo devuelve el número, no la lista completa.
+        return librosPrestadosConFecha.size(); // Solo devuelve el número, no la lista completa.
     }
 
     // INTERACCIN La clase Prestamo usa este método para darle un libro.
     public void agregarLibro(String tituloLibro) {
-        librosPrestados.add(tituloLibro);
+        librosPrestadosConFecha.put(tituloLibro, System.currentTimeMillis());
+    }
+    
+    // Método para devolver un libro y obtener el tiempo usado
+    public long devolverLibro(String tituloLibro) {
+        Long tiempoPrestamo = librosPrestadosConFecha.remove(tituloLibro);
+        if (tiempoPrestamo != null) {
+            long tiempoActual = System.currentTimeMillis();
+            return tiempoActual - tiempoPrestamo; // Tiempo en milisegundos
+        }
+        return -1; // Libro no encontrado
+    }
+    
+    // Método para obtener los libros prestados
+    public HashMap<String, Long> getLibrosPrestados() {
+        return librosPrestadosConFecha;
     }
 }
 
